@@ -3,6 +3,9 @@ using Serilog;
 using Microsoft.EntityFrameworkCore;
 using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
+using Mapster;
+using System.Reflection;
+using MapsterMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +26,13 @@ builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(t => t.FullNam
 builder.Services.AddEndpoints();
 
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+
+builder.Services.AddMapster();
+var mappingConfig = TypeAdapterConfig.GlobalSettings;
+mappingConfig.Scan(Assembly.GetExecutingAssembly());
+builder.Services.AddSingleton(mappingConfig);
+builder.Services.AddScoped<IMapper, ServiceMapper>();
 
 var app = builder.Build();
 

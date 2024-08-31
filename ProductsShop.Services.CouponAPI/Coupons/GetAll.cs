@@ -1,4 +1,6 @@
+using MapsterMapper;
 using Microsoft.EntityFrameworkCore;
+using ProductsShop.Services.CouponAPI.Coupons.CommonModels;
 using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
 
@@ -6,31 +8,19 @@ namespace ProductsShop.Services.CouponAPI.Coupons;
 
 public static class GetAll
 {
-    public record Response(
-            int CouponId,
-            string CouponName,
-            string CouponCode,
-            decimal DiscountAmount,
-            int MinAmount
-        );
-
-    public class Endpoint : IEndpoint
+    public sealed class Endpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("Coupons", Handler).WithTags("Coupons");
+            app.MapGet("Coupons", Handler)
+            .WithTags("Coupons")
+            .Produces<List<CouponDTO>>();
         }
     }
 
-    public static async Task<IResult> Handler(AppDbContext context)
+    public static async Task<IResult> Handler(AppDbContext context, IMapper mapper)
     {
-        return TypedResults.Ok(await context.Coupons
-            .Select(c => new Response(
-                c.CouponId,
-                c.CouponName,
-                c.CouponCode,
-                c.DiscountAmount,
-                c.MinAmount
-            )).ToListAsync());
+        var coupons = await context.Coupons.AsNoTracking().ToListAsync();
+        return TypedResults.Ok(mapper.Map<List<CouponDTO>>(coupons));
     }
 }

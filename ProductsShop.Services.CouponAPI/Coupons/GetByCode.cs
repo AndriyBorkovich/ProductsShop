@@ -1,21 +1,15 @@
+using MapsterMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
+using ProductsShop.Services.CouponAPI.Coupons.CommonModels;
 using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
 
 namespace ProductsShop.Services.CouponAPI.Coupons;
 
-public class GetByCode
+public static class GetByCode
 {
-    public record Response(
-        int CouponId,
-        string CouponName,
-        string CouponCode,
-        decimal DiscountAmount,
-        int MinAmount
-    );
-
-    public class Endpoint : IEndpoint
+    public sealed class Endpoint : IEndpoint
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
@@ -23,7 +17,7 @@ public class GetByCode
         }
     }
 
-    public static async Task<Results<Ok<Response>, NotFound>> Handler(string code, AppDbContext context)
+    public static async Task<Results<Ok<CouponDTO>, NotFound>> Handler(string code, AppDbContext context, IMapper mapper)
     {
         // perform case-insentitive search
         var coupon = await context.Coupons.FirstOrDefaultAsync(c => EF.Functions.ILike(c.CouponCode, code));
@@ -33,11 +27,6 @@ public class GetByCode
             return TypedResults.NotFound();
         }
 
-        return TypedResults.Ok(new Response(
-            coupon.CouponId,
-            coupon.CouponName,
-            coupon.CouponCode,
-            coupon.DiscountAmount,
-            coupon.MinAmount));
+        return TypedResults.Ok(mapper.Map<CouponDTO>(coupon));
     }
 }
