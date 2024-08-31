@@ -1,4 +1,5 @@
 using FluentValidation;
+using Serilog;
 using Microsoft.EntityFrameworkCore;
 using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
@@ -11,6 +12,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 });
 
 builder.Services.AddScoped<IDataSeeder, DataSeeder>();
+
+builder.Services.AddSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configuration));
 
 builder.Services.AddAuthorization();
 
@@ -35,6 +38,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseSerilogRequestLogging();
 
 app.UseHttpsRedirection();
 
