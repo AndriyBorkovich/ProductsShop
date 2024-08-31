@@ -18,7 +18,7 @@ builder.Services.AddSerilog((_, lc) => lc.ReadFrom.Configuration(builder.Configu
 builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(t => t.FullName?.Replace('+', '.')));
 
 builder.Services.AddEndpoints();
 

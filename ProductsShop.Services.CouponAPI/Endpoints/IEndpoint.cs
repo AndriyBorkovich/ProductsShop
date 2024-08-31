@@ -1,7 +1,6 @@
-﻿namespace ProductsShop.Services.CouponAPI.Endpoints
+﻿namespace ProductsShop.Services.CouponAPI.Endpoints;
+
+public interface IEndpoint
 {
-    public interface IEndpoint
-    {
-        void MapEndpoint(IEndpointRouteBuilder app);
-    }
+    void MapEndpoint(IEndpointRouteBuilder app);
 }
