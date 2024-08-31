@@ -1,13 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ProductsShop.Services.CouponAPI.Models;
+namespace ProductsShop.Services.CouponAPI.Persistence.Models;
 
 public class Coupon
 {
     public int CouponId { get; set; }
-    [Required ,StringLength(200)]
+    [Required, StringLength(200)]
     public string CouponName { get; set; }
     [Required, StringLength(200)]
     public string CouponCode { get; set; }
