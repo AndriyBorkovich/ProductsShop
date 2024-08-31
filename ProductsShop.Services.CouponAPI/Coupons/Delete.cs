@@ -13,7 +13,7 @@ public class Delete
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapDelete("Coupons/Delete/{id:int}", Handle).WithTags("Coupons");
+            app.MapDelete("api/Coupons/Delete/{id:int}", Handle).WithTags("Coupons");
         }
     }
 

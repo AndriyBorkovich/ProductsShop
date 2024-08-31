@@ -13,7 +13,7 @@ public static class GetById
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("Coupons/GetById/{id:int}", Handler).WithTags("Coupons");
+            app.MapGet("api/Coupons/GetById/{id:int}", Handler).WithTags("Coupons");
         }
     }
 

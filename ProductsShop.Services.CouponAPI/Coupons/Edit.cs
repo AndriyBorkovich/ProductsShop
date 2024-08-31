@@ -34,7 +34,7 @@ public class Edit
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPut("Coupons/Edit/{id:int}", Handler).WithTags("Coupons");
+            app.MapPut("api/Coupons/Edit/{id:int}", Handler).WithTags("Coupons");
         }
     }
 

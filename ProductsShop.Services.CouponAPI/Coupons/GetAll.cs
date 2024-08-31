@@ -12,9 +12,7 @@ public static class GetAll
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("Coupons", Handler)
-            .WithTags("Coupons")
-            .Produces<List<CouponDTO>>();
+            app.MapGet("api/Coupons", Handler).WithTags("Coupons").Produces<List<CouponDTO>>();
         }
     }
 

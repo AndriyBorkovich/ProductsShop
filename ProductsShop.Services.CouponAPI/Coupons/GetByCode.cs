@@ -13,7 +13,7 @@ public static class GetByCode
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapGet("Coupons/GetByCode/{code}", Handler).WithTags("Coupons");
+            app.MapGet("api/Coupons/GetByCode/{code}", Handler).WithTags("Coupons");
         }
     }
 

@@ -35,7 +35,7 @@ public static class Create
     {
         public void MapEndpoint(IEndpointRouteBuilder app)
         {
-            app.MapPost("Coupons/Create", Handler).WithTags("Coupons");
+            app.MapPost("api/Coupons/Create", Handler).WithTags("Coupons");
         }
     }
 
