@@ -32,8 +32,8 @@ else
                     <td>@coupon.CouponId</td>
                     <td>@coupon.CouponName</td>
                     <td>@coupon.CouponCode</td>
-                    <td>@coupon.DiscountAmount</td>
-                    <td>@coupon.MinAmount</td>
+                    <td>@coupon.DiscountAmount.ToString("c")</td>
+                    <td>@coupon.MinAmount.ToString("c")</td>
                     <td>
                         <button type="button" class="btn" @onclick='() => Navigation.NavigateTo($"/coupons/edit/{id}")'>Edit</button>
                         <button type="button" class="btn" @onclick='() => DeleteCoupon(id)'>Delete</button>

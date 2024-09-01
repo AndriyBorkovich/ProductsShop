@@ -4,31 +4,33 @@
 @using ProductsShop.WebUI.Services
 @inject ICouponsClientService CouponsService
 @inject HttpClient Http
+<div class="edit-coupon-container">
+    <h3>Edit Coupon</h3>
 
-<h3>Edit Coupon</h3>
+    <EditForm Model="@Item" OnValidSubmit="HandleValidSubmit" class="edit-coupon-form">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
 
-<EditForm Model="@Item" OnValidSubmit="HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+        <div class="form-group">
+            <label>Coupon Name:</label>
+            <InputText @bind-Value="@Item.CouponName" class="form-control"/>
+        </div>
+        <div class ="form-group">
+            <label>Coupon Code:</label>
+            <InputText @bind-Value="@Item.CouponCode" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Discount Amount:</label>
+            <InputNumber @bind-Value="@Item.DiscountAmount" class="form-control"/>
+        </div>
+        <div class="form-group">
+            <label>Min Amount:</label>
+            <InputNumber @bind-Value="@Item.MinAmount" class="form-control" />
+        </div>
+        <button type="submit" class="save-button">Save</button>
+    </EditForm>
+</div>
 
-    <div>
-        <label>Coupon Name:</label>
-        <InputText @bind-Value="@Item.CouponName" />
-    </div>
-    <div>
-        <label>Coupon Code:</label>
-        <InputText @bind-Value="@Item.CouponCode" />
-    </div>
-    <div>
-        <label>Discount Amount:</label>
-        <InputNumber @bind-Value="@Item.DiscountAmount" />
-    </div>
-    <div>
-        <label>Min Amount:</label>
-        <InputNumber @bind-Value="@Item.MinAmount" />
-    </div>
-    <button type="submit">Save</button>
-</EditForm>
 
 @code {
     [Parameter]
