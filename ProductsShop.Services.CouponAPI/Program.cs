@@ -1,7 +1,6 @@
 using FluentValidation;
 using Serilog;
 using Microsoft.EntityFrameworkCore;
-using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
 using Mapster;
 using System.Reflection;

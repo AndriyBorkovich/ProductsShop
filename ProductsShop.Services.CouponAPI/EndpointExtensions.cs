@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Reflection;
 
-namespace ProductsShop.Services.CouponAPI.Endpoints;
+namespace ProductsShop.Services.CouponAPI;
 
 public static class EndpointExtensions
 {
@@ -12,7 +12,7 @@ public static class EndpointExtensions
         return services;
     }
 
-   
+
 
     public static IApplicationBuilder MapEndpoints(this WebApplication app, RouteGroupBuilder? routeGroupBuilder = null)
     {

@@ -3,11 +3,10 @@ using FluentValidation.Results;
 using MapsterMapper;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
 using ProductsShop.Services.CouponAPI.Persistence.Models;
 
-namespace ProductsShop.Services.CouponAPI.Coupons;
+namespace ProductsShop.Services.CouponAPI.Features;
 
 public static class Create
 {

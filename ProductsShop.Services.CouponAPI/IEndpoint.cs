@@ -1,4 +1,4 @@
-﻿namespace ProductsShop.Services.CouponAPI.Endpoints;
+﻿namespace ProductsShop.Services.CouponAPI;
 
 public interface IEndpoint
 {

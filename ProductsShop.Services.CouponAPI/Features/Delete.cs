@@ -1,9 +1,8 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
-using ProductsShop.Services.CouponAPI.Endpoints;
 using ProductsShop.Services.CouponAPI.Persistence;
 
-namespace ProductsShop.Services.CouponAPI.Coupons;
+namespace ProductsShop.Services.CouponAPI.Features;
 
 public class Delete
 {

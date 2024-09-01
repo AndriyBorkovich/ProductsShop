@@ -1,4 +1,4 @@
-namespace ProductsShop.Services.CouponAPI.Coupons.CommonModels;
+namespace ProductsShop.Services.CouponAPI.Features.CommonModels;
 
 public record CouponDTO(
     int CouponId,
