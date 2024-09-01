@@ -4,6 +4,7 @@
 @using ProductsShop.WebUI.Services
 @inject ICouponsClientService CouponsClientService
 @inject NavigationManager Navigation
+@inject ToastService ToastService
 
 <h3>Coupons</h3>
 
@@ -35,8 +36,8 @@ else
                     <td>@coupon.DiscountAmount.ToString("c")</td>
                     <td>@coupon.MinAmount.ToString("c")</td>
                     <td>
-                        <button type="button" class="btn" @onclick='() => Navigation.NavigateTo($"/coupons/edit/{id}")'>Edit</button>
-                        <button type="button" class="btn" @onclick='() => DeleteCoupon(id)'>Delete</button>
+                        <Button Color="ButtonColor.Info" @onclick='() => Navigation.NavigateTo($"/coupons/edit/{id}")'>Edit</Button>
+                        <Button Color="ButtonColor.Danger" @onclick='() => DeleteCoupon(id)'>Delete</Button>
                     </td>
                 </tr>
             }
@@ -64,6 +65,7 @@ else
         var success = await CouponsClientService.DeleteCouponAsync(id);
         if (success)
         {
+            ToastService.Notify(ToastMessageFactory.Create(ToastType.Success, success, $"Coupon {id} was deleted"));
             coupons = await CouponsClientService.GetAllCouponsAsync();
         }
     }

@@ -4,6 +4,7 @@
 @using ProductsShop.WebUI.Services
 @inject ICouponsClientService CouponsClientService
 @inject NavigationManager Navigation
+@inject ToastService ToastService
 
 <h3>Create new coupon</h3>
 
@@ -48,7 +49,7 @@
         }
         else
         {
-            // Show an error message (this could be handled in various ways, such as using a toast notification)
+            ToastService.Notify(ToastMessageFactory.Create(ToastType.Danger, success, "Error during creation"));
         }
     }
 

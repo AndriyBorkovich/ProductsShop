@@ -3,7 +3,9 @@
 @using ProductsShop.WebUI.Models
 @using ProductsShop.WebUI.Services
 @inject ICouponsClientService CouponsService
-@inject HttpClient Http
+@inject NavigationManager Navigator
+@inject ToastService ToastService
+
 <div class="edit-coupon-container">
     <h3>Edit Coupon</h3>
 
@@ -48,11 +50,12 @@
         var isSuccess = await CouponsService.UpdateCouponAsync(Id, Item);
         if (isSuccess)
         {
-            // Handle success
+            ToastService.Notify(ToastMessageFactory.Create(ToastType.Success, true, $"Coupon {Id} was edited"));
+            Navigator.NavigateTo("/coupons");
         }
         else
         {
-            
+            ToastService.Notify(ToastMessageFactory.Create(ToastType.Danger, false, "Error durring update"));
         }
     }
 }
