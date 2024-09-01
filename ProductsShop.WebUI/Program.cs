@@ -1,10 +1,20 @@
 using ProductsShop.WebUI.Components;
+using ProductsShop.WebUI.Components.Coupons;
+using ProductsShop.WebUI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped(sp =>
+    new HttpClient
+    {
+        BaseAddress = new Uri("http://localhost:7001") // coupons API
+    });
+
+builder.Services.AddScoped<ICouponsClientService, CouponsClientService>();
 
 var app = builder.Build();
 

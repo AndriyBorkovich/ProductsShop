@@ -1,0 +1,56 @@
+﻿@page "/coupons/edit/{Id:int}"
+@rendermode InteractiveServer
+@using ProductsShop.WebUI.Models
+@using ProductsShop.WebUI.Services
+@inject ICouponsClientService CouponsService
+@inject HttpClient Http
+
+<h3>Edit Coupon</h3>
+
+<EditForm Model="@Item" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <label>Coupon Name:</label>
+        <InputText @bind-Value="@Item.CouponName" />
+    </div>
+    <div>
+        <label>Coupon Code:</label>
+        <InputText @bind-Value="@Item.CouponCode" />
+    </div>
+    <div>
+        <label>Discount Amount:</label>
+        <InputNumber @bind-Value="@Item.DiscountAmount" />
+    </div>
+    <div>
+        <label>Min Amount:</label>
+        <InputNumber @bind-Value="@Item.MinAmount" />
+    </div>
+    <button type="submit">Save</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    public CouponDTO Item { get; set; } = new CouponDTO();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Item = await CouponsService.GetCouponByIdAsync(Id);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var isSuccess = await CouponsService.UpdateCouponAsync(Id, Item);
+        if (isSuccess)
+        {
+            // Handle success
+        }
+        else
+        {
+            
+        }
+    }
+}

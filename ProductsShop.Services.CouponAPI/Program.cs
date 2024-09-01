@@ -34,7 +34,16 @@ mappingConfig.Scan(Assembly.GetExecutingAssembly());
 builder.Services.AddSingleton(mappingConfig);
 builder.Services.AddScoped<IMapper, ServiceMapper>();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("All",
+        policyConfig => policyConfig.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+
+
 var app = builder.Build();
+
+app.UseCors("All");
 
 // using (var scope = app.Services.CreateScope())
 // {

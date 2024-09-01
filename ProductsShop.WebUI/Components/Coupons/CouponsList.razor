@@ -1,0 +1,70 @@
+﻿@page "/coupons"
+@rendermode InteractiveServer
+@using ProductsShop.WebUI.Models
+@using ProductsShop.WebUI.Services
+@inject ICouponsClientService CouponsClientService
+@inject NavigationManager Navigation
+
+<h3>Coupons</h3>
+
+@if (coupons == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Code</th>
+                <th>Discount</th>
+                <th>Min Amount</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var coupon in coupons)
+            {
+                var id = coupon.CouponId;
+                <tr>
+                    <td>@coupon.CouponId</td>
+                    <td>@coupon.CouponName</td>
+                    <td>@coupon.CouponCode</td>
+                    <td>@coupon.DiscountAmount</td>
+                    <td>@coupon.MinAmount</td>
+                    <td>
+                        <button type="button" class="btn" @onclick='() => Navigation.NavigateTo($"/coupons/edit/{id}")'>Edit</button>
+                        <button type="button" class="btn" @onclick='() => DeleteCoupon(id)'>Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <button type="button" class="btn btn-primary" @onclick='() => Navigation.NavigateTo("/coupons/create")'>Create new coupon</button>
+}
+
+@code {
+    private List<CouponDTO> coupons;
+
+    public CouponsList()
+    {
+        this.coupons = [];
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        coupons = await CouponsClientService.GetAllCouponsAsync();
+    }
+
+    private async Task DeleteCoupon(int id)
+    {
+        var success = await CouponsClientService.DeleteCouponAsync(id);
+        if (success)
+        {
+            coupons = await CouponsClientService.GetAllCouponsAsync();
+        }
+    }
+}
