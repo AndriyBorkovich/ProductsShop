@@ -6,6 +6,7 @@ using ProductsShop.Services.CouponAPI.Persistence;
 using Mapster;
 using System.Reflection;
 using MapsterMapper;
+using ProductsShop.Services.CouponAPI;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,15 @@ builder.Services.AddAuthorization();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options => options.CustomSchemaIds(t => t.FullName?.Replace('+', '.')));
+
+builder.Services.AddProblemDetails(options =>
+            options.CustomizeProblemDetails = ctx =>
+            {
+                ctx.ProblemDetails.Extensions.Add("trace-id", ctx.HttpContext.TraceIdentifier);
+                ctx.ProblemDetails.Extensions.Add("instance", $"{ctx.HttpContext.Request.Method} {ctx.HttpContext.Request.Path}");
+            }
+        );
+builder.Services.AddExceptionHandler<ExceptionHandler>();
 
 builder.Services.AddEndpoints();
 
@@ -45,12 +55,7 @@ var app = builder.Build();
 
 app.UseCors("All");
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var seeder = scope.ServiceProvider.GetRequiredService<IDataSeeder>();
-
-//     await seeder.SeedCoupons();
-// }
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {
